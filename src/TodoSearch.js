@@ -1,13 +1,14 @@
+
 import './TodoSearch.css'
-function TodoSearch() {
+function TodoSearch({searchValue, setSearchValue}) {
+
     return (
       <input 
       placeholder="Cortar cebolla" 
       className="TodoSearch"
+      value={searchValue}
       onChange={(event) => {
-        console.log('Escribiste en el TodoSearch');
-        console.log(event);
-        console.log(event.target.value);
+        setSearchValue(event.target.value);
       }}
       />
     );
