@@ -1,14 +1,4 @@
-.TodoItem {
-    background-color: #FAFAFA;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 24px;
-    box-shadow: 0px 5px 50px rgba(32, 35, 41, 0.15);
-  }
-  
-  .TodoItem-p {  .Icon-container {
+.Icon-container {
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -40,13 +30,9 @@
     width: 24px;
     height: 24px;
   }
-    margin: 24px 0 24px 24px;
-    width: calc(100% - 120px);
-    font-size: 18px;
-    line-height: 24px;
-    font-weight: 400;
+  .Icon-container-check:hover .Icon-svg {
+    fill: green;
   }
-  .TodoItem-p--complete {
-    text-decoration: line-through;
+  .Icon-container-delete:hover .Icon-svg {
+    fill: red;
   }
-  
