@@ -13,9 +13,9 @@ import { AppUI } from "./AppUI";
 function App() {
 
   //UTILIZANDO EL CUSTOM HOOKS
-  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+  // renombrar props de un objeto ej: (todos: item)
+  const {item: todos , saveItem: saveTodos , loading, error} = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = useState('');
-
   
   const completeTodo = (text) => {
     const newTodos = [...todos];
@@ -38,7 +38,9 @@ function App() {
   const searchedTodos = todos.filter((todo) => todo.text.toLowerCase().includes(searchText));
 
   return (
-    <AppUI  
+    <AppUI
+    loading={loading}
+    error={error}  
     completedTodos={completedTodos}
     totalTodos={totalTodos}
     searchValue={searchValue}
