@@ -1,30 +1,36 @@
+import { useContext } from "react";
 import { CreateTodoButton } from "../CreateTodoButton/CreateTodoButton";
+import { EmptyTodos } from "../EmptyTodos/EmptyTodos";
+import { TodoContext } from "../TodoContext/TodoContext";
 import { TodoCounter } from "../TodoCounter/TodoCounter";
 import { TodoItem } from "../TodoItem/TodoItem";
 import { TodoList } from "../TodoList/TodoList";
 import { TodoSearch } from "../TodoSearch/TodoSearch";
+import { TodosError } from "../TodosError/TodosError";
+import { TodosLoading } from "../TodosLoading/TodosLoading";
+import { Modal } from "../Modal/Modal";
+import { TodoForm } from "../TodoForm/TodoForm";
 
-function AppUI({
-  completedTodos,
-  totalTodos,
-  searchValue,
-  setSearchValue,
-  searchedTodos,
-  completeTodo,
-  deleteTodo,
-  loading,
-error
-}) {
+function AppUI() {
+  const { loading, error, searchedTodos, completeTodo, deleteTodo, openModal } =
+    useContext(TodoContext);
+
   return (
     <>
-      <TodoCounter completed={completedTodos} total={totalTodos} />
-      <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+      <TodoCounter />
+      <TodoSearch />
 
       <TodoList>
-        {loading && <p>Estamos cargando...</p> }
-        {error && <p>hubo un error</p> }
-        {(!loading && searchedTodos.length === 0) && <p>!Crea tu primer TODO!</p> }
-        
+        {loading && (
+          <>
+            <TodosLoading />
+            <TodosLoading />
+            <TodosLoading />
+          </>
+        )}
+        {error && <TodosError />}
+        {!loading && searchedTodos.length === 0 && <EmptyTodos />}
+
         {searchedTodos.map((todo) => (
           <TodoItem
             key={todo.text}
@@ -35,8 +41,8 @@ error
           />
         ))}
       </TodoList>
-
       <CreateTodoButton />
+      {openModal && <Modal><TodoForm /></Modal>}
     </>
   );
 }
